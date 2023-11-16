@@ -82,20 +82,57 @@ int main() {
 
         SDL_Rect playerTemp = player->rect;
         SDL_Rect projectileTemp = ball->rect;
+        //UP
         if(PlayerDirections[UP]){ playerTemp = playerMove(player, deltaTime, 'u', playerTemp); }
         if(checkCollisionBoundary(playerTemp)) playerTemp = player->rect;
+        if(checkCollisionRects(playerTemp, projectileTemp)){
+            projectileTemp.y += 100 * player->directionY * deltaTime;
+            if(!checkCollisionBoundary(projectileTemp)){
+                ball->rect = projectileTemp;
+                player->rect = playerTemp;
+            }
+            else playerTemp = player->rect;
+        }
         else player->rect = playerTemp;
 
+        //LEFT
         if(PlayerDirections[LEFT]){ playerTemp = playerMove(player, deltaTime, 'l', playerTemp); }
         if(checkCollisionBoundary(playerTemp)) playerTemp = player->rect;
-        else player->rect = playerTemp;
+        if(checkCollisionRects(playerTemp, projectileTemp)){
+            projectileTemp.x += 100 * player->directionX * deltaTime;
+            if(!checkCollisionBoundary(projectileTemp)){
+                ball->rect = projectileTemp;
+                player->rect = playerTemp;
+                printf("red ");
+            }
+            else {playerTemp = player->rect; printf("here ");}
+        }
+        else {player->rect = playerTemp; printf("green "); }
 
+        //DOWN
         if(PlayerDirections[DOWN]){ playerTemp = playerMove(player, deltaTime, 'd', playerTemp); }
         if(checkCollisionBoundary(playerTemp)) playerTemp = player->rect;
+        if(checkCollisionRects(playerTemp, projectileTemp)){
+            projectileTemp.y += 100 * player->directionY * deltaTime;
+            if(!checkCollisionBoundary(projectileTemp)){
+                ball->rect = projectileTemp;
+                player->rect = playerTemp;
+            }
+            else playerTemp = player->rect;
+        }
         else player->rect = playerTemp;
 
+        //RIGHT
         if(PlayerDirections[RIGHT]){ playerTemp = playerMove(player, deltaTime, 'r', playerTemp); }
         if(checkCollisionBoundary(playerTemp)) playerTemp = player->rect;
+        if(checkCollisionRects(playerTemp, projectileTemp)){
+            projectileTemp.x += 100 * player->directionX * deltaTime;
+            if(!checkCollisionBoundary(projectileTemp)){
+                ball->rect = projectileTemp;
+                player->rect = playerTemp;
+            }
+            else playerTemp = player->rect;
+        }
         else player->rect = playerTemp;
 
 
