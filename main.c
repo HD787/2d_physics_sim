@@ -81,6 +81,7 @@ int main() {
         //call our movement functions
 
         SDL_Rect playerTemp = player->rect;
+        SDL_Rect projectileTemp = ball->rect;
         if(PlayerDirections[UP]){ playerTemp = playerMove(player, deltaTime, 'u', playerTemp); }
         if(checkCollisionBoundary(playerTemp)) playerTemp = player->rect;
         else player->rect = playerTemp;
@@ -98,8 +99,12 @@ int main() {
         else player->rect = playerTemp;
 
 
-        move(ball, deltaTime, player);
-        // here im gonna add the collision functions. Might not, may need to change to check after every potential move
+        projectileTemp = move(projectileTemp, ball, deltaTime);
+        //how do i determine where it hit?
+        if(checkCollisionHorizontal(projectileTemp)){ ball->directionY *= -1;}
+        if(checkCollisionVertical(projectileTemp)){ ball->directionX *= -1;}
+        ball->rect = move(projectileTemp, ball, deltaTime);
+
 
 
 
