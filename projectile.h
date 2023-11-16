@@ -18,29 +18,12 @@ projectile* spawnBall(){
     ball->rect.w = 10;
     ball->rect.h = 10;
     ball->directionX = 1;
-    ball->directionY = -1;
-    ball->momentum = .5;
+    ball->directionY = -.5;
+    ball->momentum = 1;
     return ball;
 }
 
 
-
-void hitWallHorizontal(projectile* ball){
-    ball->directionY *= -1;
-}
-void hitWallVertical(projectile* ball){
-    ball->directionX *= -1;
-}
-
-int playerCollide(int x, int y, projectile* ball, playerCharacter* player){
-    if(x + ball->rect.w < player->rect.x ||
-    x > player->rect.x + player->rect.w ||
-    y + ball->rect.h < player->rect.y ||
-    y > player->rect.y + player->rect.h){
-       return 0; 
-    }
-    else return 1;
-}
 
 SDL_Rect move(SDL_Rect new, projectile* ball, float deltaTime){
     float scalar = 100 * deltaTime * ball->momentum;

@@ -100,8 +100,8 @@ int main() {
 
 
         projectileTemp = move(projectileTemp, ball, deltaTime);
-        if(checkCollisionHorizontal(projectileTemp)){ ball->directionY *= -1;}
-        if(checkCollisionVertical(projectileTemp)){ ball->directionX *= -1;}
+        if(checkCollisionHorizontal(projectileTemp)) ball->directionY *= -1;
+        if(checkCollisionVertical(projectileTemp)) ball->directionX *= -1;
         ball->rect = move(projectileTemp, ball, deltaTime);
 
 
