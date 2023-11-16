@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 
+
 typedef struct{
     SDL_Rect rect;
     double directionX;

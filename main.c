@@ -5,7 +5,7 @@
 #include "player.h"
 #include "background.h"
 #include "projectile.h"
-
+#include "collision.h"
 
 int main() {
 
@@ -79,14 +79,33 @@ int main() {
         else player->momentum = 0;
 
         //call our movement functions
-        if(PlayerDirections[UP]){ playerup(player, deltaTime); }
-        if(PlayerDirections[LEFT]){ playerleft(player, deltaTime); }
-        if(PlayerDirections[DOWN]){ playerdown(player, deltaTime); }
-        if(PlayerDirections[RIGHT]){ playerright(player, deltaTime); }
 
+        SDL_Rect playerTemp = player->rect;
+        if(PlayerDirections[UP]){ playerTemp = playerMove(player, deltaTime, 'u', playerTemp); }
+        if(checkCollisionBoundary(playerTemp)) playerTemp = player->rect;
+        else player->rect = playerTemp;
+
+        if(PlayerDirections[LEFT]){ playerTemp = playerMove(player, deltaTime, 'l', playerTemp); }
+        if(checkCollisionBoundary(playerTemp)) playerTemp = player->rect;
+        else player->rect = playerTemp;
+
+        if(PlayerDirections[DOWN]){ playerTemp = playerMove(player, deltaTime, 'd', playerTemp); }
+        if(checkCollisionBoundary(playerTemp)) playerTemp = player->rect;
+        else player->rect = playerTemp;
+
+        if(PlayerDirections[RIGHT]){ playerTemp = playerMove(player, deltaTime, 'r', playerTemp); }
+        if(checkCollisionBoundary(playerTemp)) playerTemp = player->rect;
+        else player->rect = playerTemp;
+
+
+        move(ball, deltaTime, player);
+        // here im gonna add the collision functions. Might not, may need to change to check after every potential move
+
+
+
+        // here are my update screen functions
         Drawbackground(screenSurface, window);
         SDL_FillRect(screenSurface, &ball->rect, SDL_MapRGB(screenSurface->format, 0x00, 0x00, 0xFF));
-        move(ball, deltaTime, player);
         SDL_FillRect(screenSurface, &player->rect, SDL_MapRGB(screenSurface->format, 0x00, 0xFF, 0x00));           
         SDL_UpdateWindowSurface(window); 
         LastFrameTime = CurrentFrameTime;

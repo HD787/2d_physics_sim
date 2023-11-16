@@ -1,7 +1,7 @@
 #include <SDL.h>
 #include <stdio.h>
 
-typedef struct projectile projectile;
+
 
 typedef struct playerCharacter{
     SDL_Rect rect;
@@ -29,76 +29,24 @@ void DrawPlayer(playerCharacter* player, SDL_Surface* screenSurface, SDL_Window*
 }
 
 
-void playerMove(playerCharacter* player, float deltaTime, projectile* ball, char direction){
+SDL_Rect playerMove(playerCharacter* player, float deltaTime, char direction, SDL_Rect new){
     int scalar = 100 * deltaTime;
     if(direction == 'u'){
-        if (player->rect.y - scalar < 0){
-        ;//player cant move out of bounds
-            }
-        else{
-            player->rect.y -= scalar;
-        }
+        new.y -= scalar;
     }
     if(direction == 'd'){
-        if (player->rect.y + scalar > 440){
-            ;//player cant move out of bounds
-        }
-        else{
-            player->rect.y += scalar;
-        }
+        new.y += scalar;
     }
     if(direction == 'l'){
-        if (player->rect.x - scalar < 0){
-            ;//player cant move out of bounds
-        }
-        else{
-            player->rect.x -= scalar;
-        }
+        new.x -= scalar;
     }
     if(direction == 'r'){
-        if (player->rect.x + scalar > 600){
-            ;//player cant move out of bounds
-        }
-        else{
-            player->rect.x += scalar;
-        }
+        new.x += scalar;
     }
+    return new;
 
 }
 
-void playerup(playerCharacter* player, float deltaTime){
-    int scalar = 100 * deltaTime;
-    if (player->rect.y - scalar < 0){
-        ;//player cant move out of bounds
-    }
-    else{
-        player->rect.y -= scalar;
-    }
-}
-void playerdown(playerCharacter* player, float deltaTime){
-    int scalar = 100 * deltaTime;
-    if (player->rect.y + scalar > 440){
-        ;//player cant move out of bounds
-    }
-    else{
-        player->rect.y += scalar;
-    }
-}
-void playerleft(playerCharacter* player, float deltaTime){
-    int scalar = 100 * deltaTime;
-    if (player->rect.x - scalar < 0){
-        ;//player cant move out of bounds
-    }
-    else{
-        player->rect.x -= scalar;
-    }
-}
-void playerright(playerCharacter* player, float deltaTime){
-    int scalar = 100 * deltaTime;
-    if (player->rect.x + scalar > 600){
-        ;//player cant move out of bounds
-    }
-    else{
-        player->rect.x += scalar;
-    }
+void playerUpdate(playerCharacter* player, SDL_Rect new){
+    player->rect = new;
 }
