@@ -103,11 +103,10 @@ int main() {
             if(!checkCollisionBoundary(projectileTemp)){
                 ball->rect = projectileTemp;
                 player->rect = playerTemp;
-                printf("red ");
             }
-            else {playerTemp = player->rect; printf("here ");}
+            else {playerTemp = player->rect; }
         }
-        else {player->rect = playerTemp; printf("green "); }
+        else {player->rect = playerTemp; }
 
         //DOWN
         if(PlayerDirections[DOWN]){ playerTemp = playerMove(player, deltaTime, 'd', playerTemp); }
