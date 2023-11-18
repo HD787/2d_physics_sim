@@ -17,7 +17,7 @@ int main() {
         printf("Unable to initialize SDL: %s", SDL_GetError());
         return 1;
     }
-    //best practices says you should check to ensure this is properly instantiated
+    //best practices says you should check to ensure this is properly instantiated, im not doing this
     window = SDL_CreateWindow("My SDL2 Window", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_SHOWN );
 
     screenSurface = SDL_GetWindowSurface( window );
@@ -45,7 +45,7 @@ int main() {
                 quit = 1;
             }                         
         }
-
+        //IMPUT HANDLING
         const Uint8* keystate = SDL_GetKeyboardState(NULL);
         if(keystate[SDL_SCANCODE_W]){
             PlayerDirections[UP] = 1;
@@ -71,6 +71,8 @@ int main() {
         }
         else {PlayerDirections[RIGHT] = 0;}
 
+
+        //PLAYER MOVEMENT
         // check if directions cancel out thisll be important
         if(PlayerDirections[RIGHT] && PlayerDirections[LEFT]) player->directionX = 0;
         if(PlayerDirections[DOWN] && PlayerDirections[UP]) player->directionY = 0;
@@ -78,11 +80,12 @@ int main() {
         if(player->directionX || player->directionY) player->momentum = 1;
         else player->momentum = 0;
 
-        //call our movement functions
+        //Scalars are the amount of pixels an entity will move, precalculated to avoind rounding errors
         int scalarX = 100 * player->directionX * deltaTime;
         int scalarY = 100 * player->directionY * deltaTime ;
         SDL_Rect playerTemp = player->rect;
         SDL_Rect projectileTemp = ball->rect;
+
         //UP
         if(PlayerDirections[UP]){ playerTemp = playerMove(player, deltaTime, 'u', playerTemp); }
         if(checkCollisionBoundary(playerTemp)) playerTemp = player->rect;
@@ -135,8 +138,13 @@ int main() {
         }
         else player->rect = playerTemp;
 
-
+        //PROJECTILE MOVEMENT
+        
         projectileTemp = move(projectileTemp, ball, deltaTime);
+        SDL_Rect projectileTempX = {projectileTemp.x, ball->rect.y, 10, 10};
+        SDL_Rect projectileTempY = {ball->rect.x, projectileTemp.y, 10, 10};
+        if(checkCollisionRects(projectileTempX, player->rect)) ball->directionX *= -1;
+        if(checkCollisionRects(projectileTempY, player->rect)) ball->directionX *= -1;  
         if(checkCollisionHorizontal(projectileTemp)) ball->directionY *= -1;
         if(checkCollisionVertical(projectileTemp)) ball->directionX *= -1;
         ball->rect = move(projectileTemp, ball, deltaTime);

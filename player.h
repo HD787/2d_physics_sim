@@ -30,7 +30,7 @@ void DrawPlayer(playerCharacter* player, SDL_Surface* screenSurface, SDL_Window*
 
 
 SDL_Rect playerMove(playerCharacter* player, float deltaTime, char direction, SDL_Rect new){
-    int scalar = 100 * deltaTime;
+    int scalar = 100 * deltaTime * player->momentum;
     if(direction == 'u'){
         new.y -= scalar;
     }
