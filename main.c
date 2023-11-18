@@ -144,7 +144,7 @@ int main() {
         SDL_Rect projectileTempX = {projectileTemp.x, ball->rect.y, 10, 10};
         SDL_Rect projectileTempY = {ball->rect.x, projectileTemp.y, 10, 10};
         if(checkCollisionRects(projectileTempX, player->rect)) ball->directionX *= -1;
-        if(checkCollisionRects(projectileTempY, player->rect)) ball->directionX *= -1;  
+        if(checkCollisionRects(projectileTempY, player->rect)) ball->directionY *= -1;  
         if(checkCollisionHorizontal(projectileTemp)) ball->directionY *= -1;
         if(checkCollisionVertical(projectileTemp)) ball->directionX *= -1;
         ball->rect = move(projectileTemp, ball, deltaTime);
