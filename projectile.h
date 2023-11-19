@@ -1,8 +1,6 @@
 #include <SDL.h>
 #include <stdio.h>
 
-
-
 typedef struct{
     SDL_Rect rect;
     double directionX;
@@ -10,16 +8,15 @@ typedef struct{
     float momentum;
 }projectile;
 
-
 projectile* spawnBall(){
     projectile* ball = (projectile*) malloc(sizeof(projectile));
     ball->rect.x = 100;
     ball->rect.y = 100;
     ball->rect.w = 10;
     ball->rect.h = 10;
-    ball->directionX = 1;
-    ball->directionY = -1;
-    ball->momentum = 1;
+    ball->directionX = 0;
+    ball->directionY = 0;
+    ball->momentum = .5;
     return ball;
 }
 

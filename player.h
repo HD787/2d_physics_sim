@@ -1,8 +1,6 @@
 #include <SDL.h>
 #include <stdio.h>
 
-
-
 typedef struct playerCharacter{
     SDL_Rect rect;
     int directionX;
@@ -27,7 +25,6 @@ void DrawPlayer(playerCharacter* player, SDL_Surface* screenSurface, SDL_Window*
     SDL_FillRect(screenSurface, &player->rect, SDL_MapRGB(screenSurface->format,0x00, 0xFF, 0x00));
     SDL_UpdateWindowSurface(window);
 }
-
 
 SDL_Rect playerMove(playerCharacter* player, float deltaTime, char direction, SDL_Rect new){
     int scalar = 100 * deltaTime * player->momentum;

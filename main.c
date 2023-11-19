@@ -29,6 +29,12 @@ int main() {
     Drawbackground(screenSurface, window);
     DrawPlayer(player, screenSurface, window);
 
+    short ublocked = 0;
+    short dblocked = 0;
+    short rblocked = 0;
+    short lblocked = 0;
+
+
     enum DIRECTIONS {
     UP, DOWN, LEFT, RIGHT
     };
@@ -89,6 +95,7 @@ int main() {
         //UP
         if(PlayerDirections[UP]){ playerTemp = playerMove(player, deltaTime, 'u', playerTemp); }
         if(checkCollisionBoundary(playerTemp)) playerTemp = player->rect;
+        //this is the if check failing allowing the porjectile to be pushed out
         if(checkCollisionRects(playerTemp, projectileTemp)){
             projectileTemp.y += scalarY;
             if(!checkCollisionBoundary(projectileTemp)){
@@ -148,8 +155,6 @@ int main() {
         if(checkCollisionHorizontal(projectileTemp)) ball->directionY *= -1;
         if(checkCollisionVertical(projectileTemp)) ball->directionX *= -1;
         ball->rect = move(projectileTemp, ball, deltaTime);
-
-
 
 
         // here are my update screen functions
