@@ -94,17 +94,31 @@ int main() {
 
         //UP
         if(PlayerDirections[UP]){ playerTemp = playerMove(player, deltaTime, 'u', playerTemp); }
-        if(checkCollisionBoundary(playerTemp)) playerTemp = player->rect;
-        //this is the if check failing allowing the porjectile to be pushed out
-        if(checkCollisionRects(playerTemp, projectileTemp)){
-            projectileTemp.y += scalarY;
-            if(!checkCollisionBoundary(projectileTemp)){
-                ball->rect = projectileTemp;
-                player->rect = playerTemp;
-            }
-            else playerTemp = player->rect;
+        if(checkCollisionBoundary(playerTemp)) {
+            playerTemp = player->rect;
+            printf("1");
+            goto endup;
         }
-        else player->rect = playerTemp;
+        if(!checkCollisionRects(playerTemp, projectileTemp)){
+            player->rect = playerTemp;
+            printf("2");
+            goto endup;
+        }
+        projectileTemp.y += scalarY;
+        if(checkCollisionRects(playerTemp, projectileTemp) && checkCollisionBoundary(projectileTemp)){
+            projectileTemp = ball->rect;
+            playerTemp = player->rect;
+            printf("3");
+            goto endup;
+        }
+        if(checkCollisionRects(playerTemp, projectileTemp) && !checkCollisionBoundary(projectileTemp)){
+            ball->rect = projectileTemp;
+            player->rect = playerTemp;
+            printf("4"); 
+        }
+        //else player->rect = playerTemp;
+        endup:
+
 
         //LEFT
         if(PlayerDirections[LEFT]){ playerTemp = playerMove(player, deltaTime, 'l', playerTemp); }
