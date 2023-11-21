@@ -93,28 +93,36 @@ int main() {
         SDL_Rect projectileTemp = ball->rect;
 
         //UP
+        //TAKING A BREAK, THIS DONT WORK, CONSIDERS USING A COLLIDEDUP BOOL THING, COULD BE GOOD
+        //calculate where new position will be
+        //see if it collides with boundary, if so, no movement skip to the end
+        // see if it collides with ball, if so check if ball collides with boundary if so, no movement skip to the end
+        // if collides with ball and ball doest collide with boundary move both skip to end
+        // if collides
+
         if(PlayerDirections[UP]){ playerTemp = playerMove(player, deltaTime, 'u', playerTemp); }
         if(checkCollisionBoundary(playerTemp)) {
             playerTemp = player->rect;
-            printf("1");
             goto endup;
         }
-        if(!checkCollisionRects(playerTemp, projectileTemp)){
-            player->rect = playerTemp;
-            printf("2");
-            goto endup;
-        }
-        projectileTemp.y += scalarY;
-        if(checkCollisionRects(playerTemp, projectileTemp) && checkCollisionBoundary(projectileTemp)){
-            projectileTemp = ball->rect;
-            playerTemp = player->rect;
-            printf("3");
-            goto endup;
-        }
+        if(checkCollisionRects(playerTemp, projectileTemp)){
+            projectileTemp.y += scalarY;
+            if(checkCollisionBoundary(projectileTemp)){
+                playerTemp = player->rect;
+                printf("2");
+                goto endup;
+            }
+        }        
         if(checkCollisionRects(playerTemp, projectileTemp) && !checkCollisionBoundary(projectileTemp)){
             ball->rect = projectileTemp;
             player->rect = playerTemp;
-            printf("4"); 
+            printf("hey");
+            goto endup;
+        }
+        if(!checkCollisionRects(playerTemp, projectileTemp) && !checkCollisionBoundary(projectileTemp)){
+            ball->rect = projectileTemp;
+            player->rect = playerTemp;
+            printf("wut"); 
         }
         //else player->rect = playerTemp;
         endup:
@@ -122,42 +130,76 @@ int main() {
 
         //LEFT
         if(PlayerDirections[LEFT]){ playerTemp = playerMove(player, deltaTime, 'l', playerTemp); }
-        if(checkCollisionBoundary(playerTemp)) playerTemp = player->rect;
+        if(checkCollisionBoundary(playerTemp)) {
+            playerTemp = player->rect;
+            goto endleft;
+        }
         if(checkCollisionRects(playerTemp, projectileTemp)){
             projectileTemp.x += scalarX;
-            if(!checkCollisionBoundary(projectileTemp)){
-                ball->rect = projectileTemp;
-                player->rect = playerTemp;
+            if(checkCollisionBoundary(projectileTemp)){
+                playerTemp = player->rect;
+                goto endleft;
             }
-            else {playerTemp = player->rect; }
+        }        
+        if(checkCollisionRects(playerTemp, projectileTemp) && !checkCollisionBoundary(projectileTemp)){
+            ball->rect = projectileTemp;
+            player->rect = playerTemp;
+            goto endleft;
         }
-        else {player->rect = playerTemp; }
+        if(!checkCollisionRects(playerTemp, projectileTemp) && !checkCollisionBoundary(projectileTemp)){
+            ball->rect = projectileTemp;
+            player->rect = playerTemp;
+        }
+        //else player->rect = playerTemp;
+        endleft:
 
         //DOWN
         if(PlayerDirections[DOWN]){ playerTemp = playerMove(player, deltaTime, 'd', playerTemp); }
-        if(checkCollisionBoundary(playerTemp)) playerTemp = player->rect;
+        if(checkCollisionBoundary(playerTemp)) {
+            playerTemp = player->rect;
+            goto enddown;
+        }
         if(checkCollisionRects(playerTemp, projectileTemp)){
             projectileTemp.y += scalarY;
-            if(!checkCollisionBoundary(projectileTemp)){
-                ball->rect = projectileTemp;
-                player->rect = playerTemp;
+            if(checkCollisionBoundary(projectileTemp)){
+                playerTemp = player->rect;
+                goto enddown;
             }
-            else playerTemp = player->rect;
+        }        
+        if(checkCollisionRects(playerTemp, projectileTemp) && !checkCollisionBoundary(projectileTemp)){
+            ball->rect = projectileTemp;
+            player->rect = playerTemp;
+            goto enddown;
         }
-        else player->rect = playerTemp;
+        if(!checkCollisionRects(playerTemp, projectileTemp) && !checkCollisionBoundary(projectileTemp)){
+            ball->rect = projectileTemp;
+            player->rect = playerTemp;
+        }
+        enddown:
 
         //RIGHT
         if(PlayerDirections[RIGHT]){ playerTemp = playerMove(player, deltaTime, 'r', playerTemp); }
-        if(checkCollisionBoundary(playerTemp)) playerTemp = player->rect;
+        if(checkCollisionBoundary(playerTemp)) {
+            playerTemp = player->rect;
+            goto endright;
+        }
         if(checkCollisionRects(playerTemp, projectileTemp)){
             projectileTemp.x += scalarX;
-            if(!checkCollisionBoundary(projectileTemp)){
-                ball->rect = projectileTemp;
-                player->rect = playerTemp;
+            if(checkCollisionBoundary(projectileTemp)){
+                playerTemp = player->rect;
+                goto endright;
             }
-            else playerTemp = player->rect;
+        }        
+        if(checkCollisionRects(playerTemp, projectileTemp) && !checkCollisionBoundary(projectileTemp)){
+            ball->rect = projectileTemp;
+            player->rect = playerTemp;
+            goto endright;
         }
-        else player->rect = playerTemp;
+        if(!checkCollisionRects(playerTemp, projectileTemp) && !checkCollisionBoundary(projectileTemp)){
+            ball->rect = projectileTemp;
+            player->rect = playerTemp;
+        }
+        endright:
 
         //PROJECTILE MOVEMENT
         
