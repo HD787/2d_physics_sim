@@ -93,13 +93,7 @@ int main() {
         SDL_Rect projectileTemp = ball->rect;
 
         //UP
-        //TAKING A BREAK, THIS DONT WORK, CONSIDERS USING A COLLIDEDUP BOOL THING, COULD BE GOOD
-        //calculate where new position will be
-        //see if it collides with boundary, if so, no movement skip to the end
-        // see if it collides with ball, if so check if ball collides with boundary if so, no movement skip to the end
-        // if collides with ball and ball doest collide with boundary move both skip to end
-        // if collides
-
+        projectileTemp = ball->rect;
         if(PlayerDirections[UP]){ playerTemp = playerMove(player, deltaTime, 'u', playerTemp); }
         if(checkCollisionBoundary(playerTemp)) {
             playerTemp = player->rect;
@@ -109,26 +103,23 @@ int main() {
             projectileTemp.y += scalarY;
             if(checkCollisionBoundary(projectileTemp)){
                 playerTemp = player->rect;
-                printf("2");
                 goto endup;
             }
         }        
         if(checkCollisionRects(playerTemp, projectileTemp) && !checkCollisionBoundary(projectileTemp)){
             ball->rect = projectileTemp;
             player->rect = playerTemp;
-            printf("hey");
             goto endup;
         }
         if(!checkCollisionRects(playerTemp, projectileTemp) && !checkCollisionBoundary(projectileTemp)){
             ball->rect = projectileTemp;
             player->rect = playerTemp;
-            printf("wut"); 
         }
-        //else player->rect = playerTemp;
         endup:
 
 
         //LEFT
+        projectileTemp = ball->rect;
         if(PlayerDirections[LEFT]){ playerTemp = playerMove(player, deltaTime, 'l', playerTemp); }
         if(checkCollisionBoundary(playerTemp)) {
             playerTemp = player->rect;
@@ -154,6 +145,7 @@ int main() {
         endleft:
 
         //DOWN
+        projectileTemp = ball->rect;
         if(PlayerDirections[DOWN]){ playerTemp = playerMove(player, deltaTime, 'd', playerTemp); }
         if(checkCollisionBoundary(playerTemp)) {
             playerTemp = player->rect;
@@ -178,6 +170,7 @@ int main() {
         enddown:
 
         //RIGHT
+        projectileTemp = ball->rect;
         if(PlayerDirections[RIGHT]){ playerTemp = playerMove(player, deltaTime, 'r', playerTemp); }
         if(checkCollisionBoundary(playerTemp)) {
             playerTemp = player->rect;
