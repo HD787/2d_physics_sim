@@ -29,12 +29,6 @@ int main() {
     Drawbackground(screenSurface, window);
     DrawPlayer(player, screenSurface, window);
 
-    short ublocked = 0;
-    short dblocked = 0;
-    short rblocked = 0;
-    short lblocked = 0;
-
-
     enum DIRECTIONS {
     UP, DOWN, LEFT, RIGHT
     };
@@ -86,7 +80,7 @@ int main() {
         if(player->directionX || player->directionY) player->momentum = 1;
         else player->momentum = 0;
 
-        //Scalars are the amount of pixels an entity will move, precalculated to avoind rounding errors
+        //Scalars are the amount of pixels an entity will move, precalculated to avoid rounding errors
         int scalarX = 100 * player->directionX * deltaTime;
         int scalarY = 100 * player->directionY * deltaTime ;
         SDL_Rect playerTemp = player->rect;
