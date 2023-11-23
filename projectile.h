@@ -14,8 +14,8 @@ projectile* spawnBall(){
     ball->rect.y = 100;
     ball->rect.w = 10;
     ball->rect.h = 10;
-    ball->directionX = 1;
-    ball->directionY = -1;
+    ball->directionX = 0;
+    ball->directionY = 0;
     ball->momentum = .5;
     return ball;
 }
@@ -35,5 +35,6 @@ SDL_Rect move(SDL_Rect new, projectile* ball, float deltaTime){
     else yadder = ball->directionY * scalar;
     new.x += xadder;
     new.y += yadder;
+    //printf("%f ", xadder);
     return new;
 }

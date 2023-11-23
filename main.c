@@ -138,6 +138,9 @@ int main() {
         //else player->rect = playerTemp;
         endleft:
 
+        //RIGHT
+        
+
         //DOWN
         projectileTemp = ball->rect;
         if(PlayerDirections[DOWN]){ playerTemp = playerMove(player, deltaTime, 'd', playerTemp); }
@@ -163,7 +166,6 @@ int main() {
         }
         enddown:
 
-        //RIGHT
         projectileTemp = ball->rect;
         if(PlayerDirections[RIGHT]){ playerTemp = playerMove(player, deltaTime, 'r', playerTemp); }
         if(checkCollisionBoundary(playerTemp)) {
@@ -188,6 +190,7 @@ int main() {
         }
         endright:
 
+        projectileTemp = ball->rect;
         //PROJECTILE MOVEMENT
         
         projectileTemp = move(projectileTemp, ball, deltaTime);
